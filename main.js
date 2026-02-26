@@ -111,7 +111,7 @@ function captureImage(view) {
         canvas.height = video.videoHeight;
         context.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-        const dataURL = canvas.toDataURL('image/jpeg', 0.8);
+        const dataURL = canvas.toDataURL('image/png');
         input.value = dataURL;
         imgPreview.src = dataURL;
         imgPreview.style.display = 'block';
@@ -125,7 +125,7 @@ function captureImage(view) {
 async function submitWizard() {
     console.log('Enviando formulario final...');
     const form = document.getElementById('diagnosticForm');
-    
+
     // Validar requeridos en html5 (hacky trigger)
     if (!form.checkValidity()) {
         form.reportValidity();
@@ -139,13 +139,13 @@ async function submitWizard() {
     try {
         const formData = new FormData(form);
         const formDataObj = {};
-        
+
         for (let [key, value] of formData.entries()) {
             formDataObj[key] = value;
         }
 
         console.log('Sending data (simulating to endpoint)...');
-        
+
         const response = await fetch('https://us-central1-adaptivabiomotion-93558.cloudfunctions.net/app/api/form', {
             method: 'POST',
             headers: {
@@ -158,7 +158,7 @@ async function submitWizard() {
         let resData;
         try {
             resData = JSON.parse(text);
-        } catch(e) { /* ignore parse error on ok */ }
+        } catch (e) { /* ignore parse error on ok */ }
 
         if (response.ok) {
             alert("¡Diagnóstico guardado exitosamente!");
@@ -166,14 +166,14 @@ async function submitWizard() {
             // Reset to step 1
             currentStep = 1;
             updateWizardUI();
-            
+
             // Clear images
             ['frontal', 'posterior', 'plantar', 'retropie', 'receta'].forEach(view => {
                 const img = document.getElementById(`img_${view}`);
                 if (img) img.style.display = 'none';
             });
-            if(fileDisplay) fileDisplay.textContent = '';
-            
+            if (fileDisplay) fileDisplay.textContent = '';
+
         } else {
             const errorMessage = (resData && (resData.error || resData.message)) || 'Error en el servidor.';
             alert(`Error: ${errorMessage}`);
