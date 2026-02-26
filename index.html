@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BioMotion Pro - Diagnóstico Biomecánico</title>
+    <!-- Modern Typography: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Overlay Spinner for Submission -->
+    <div id="spinnerOverlay" class="spinner-overlay">
+        <div class="spinner-container">
+            <div class="spinner"></div>
+            <div class="spinner-text">Procesando Diagnóstico...</div>
+        </div>
+    </div>
+
+    <!-- Background Decoration -->
+    <div class="bg-shape shape-1"></div>
+    <div class="bg-shape shape-2"></div>
+
+    <div class="wizard-container">
+
+        <!-- Header / Progress Area -->
+        <header class="wizard-header">
+            <div class="brand">
+                <h1>BioMotion <span>Pro</span></h1>
+            </div>
+
+            <div class="progress-wrapper">
+                <a href="records.html" class="btn btn-secondary"
+                    style="margin-bottom: 15px; display: inline-block; text-decoration: none; font-size: 0.85rem; padding: 0.5rem 1rem;">Ver
+                    Historial</a>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" id="progressBar"></div>
+                </div>
+                <div class="step-indicator">Paso <span id="currentStepText">1</span> de 9</div>
+            </div>
+        </header>
+
+        <form id="diagnosticForm" enctype="multipart/form-data">
+
+            <!-- STEP 1: Datos Generales -->
+            <section class="wizard-step active" id="step-1">
+                <div class="step-header">
+                    <h2>1. Datos Generales</h2>
+                    <p>Información básica del paciente</p>
+                </div>
+
+                <div class="form-grid">
+                    <div class="input-group">
+                        <label>Nombre del paciente</label>
+                        <input type="text" name="nombrePaciente" required placeholder="Ej. Juan Pérez">
+                    </div>
+                    <div class="input-group">
+                        <label>Edad</label>
+                        <input type="number" name="edad" required placeholder="Ej. 35">
+                    </div>
+                    <div class="input-group full-width">
+                        <label>Profesión</label>
+                        <input type="text" name="profesion" placeholder="Ej. Ingeniero">
+                    </div>
+                    <div class="input-group full-width">
+                        <label>Exigencias laborales</label>
+                        <textarea name="exigenciasLaborales" rows="2"
+                            placeholder="Describa el nivel de exigencia física laboral..."></textarea>
+                    </div>
+                    <div class="input-group full-width">
+                        <label>Preferencias en el calzado</label>
+                        <input type="text" name="preferenciasCalzado" placeholder="Ej. Deportivo, formal, amplio...">
+                    </div>
+                    <div class="input-group full-width">
+                        <label>Actividades Deportivas / Recreativas</label>
+                        <textarea name="actividadesDeportivasRecreativas" rows="2"
+                            placeholder="Ej. Correr 3 veces por semana..."></textarea>
+                    </div>
+                </div>
+            </section>
+
+            <!-- STEP 2: Motivo de la visita -->
+            <section class="wizard-step" id="step-2">
+                <div class="step-header">
+                    <h2>2. Motivo de la Visita</h2>
+                    <p>Detalles sobre la dolencia principal</p>
+                </div>
+
+                <div class="form-grid">
+                    <div class="input-group full-width">
+                        <label>Descripción del dolor o molestia</label>
+                        <textarea name="descripcionDolor" rows="4"
+                            placeholder="Describa la ubicación, tipo e intensidad del dolor..."></textarea>
+                    </div>
+                    <div class="input-group full-width">
+                        <label>¿Quién recomendó acudir?</label>
+                        <input type="text" name="recomendadoPor" placeholder="Ej. Dr. García (Traumatólogo)">
+                    </div>
+                </div>
+            </section>
+
+            <!-- STEP 3: Observación de la Marcha -->
+            <section class="wizard-step" id="step-3">
+                <div class="step-header">
+                    <h2>3. Observación de la Marcha</h2>
+                    <p>Análisis en movimiento</p>
+                </div>
+
+                <div class="checkbox-grid">
+                    <div class="checkbox-card">
+                        <h3 class="card-title">Inversión</h3>
+                        <label class="custom-checkbox"><input type="checkbox"
+                                name="inversion_derecha"><span></span>Derecha</label>
+                        <label class="custom-checkbox"><input type="checkbox"
+                                name="inversion_izquierda"><span></span>Izquierda</label>
+                    </div>
+                    <div class="checkbox-card">
+                        <h3 class="card-title">Eversión</h3>
+                        <label class="custom-checkbox"><input type="checkbox"
+                                name="eversion_derecha"><span></span>Derecha</label>
+                        <label class="custom-checkbox"><input type="checkbox"
+                                name="eversion_izquierda"><span></span>Izquierda</label>
+                    </div>
+                    <div class="checkbox-card">
+                        <h3 class="card-title">Aducción</h3>
+                        <label class="custom-checkbox"><input type="checkbox"
+                                name="aduccion_derecha"><span></span>Derecha</label>
+                        <label class="custom-checkbox"><input type="checkbox"
+                                name="aduccion_izquierda"><span></span>Izquierda</label>
+                    </div>
+                    <div class="checkbox-card">
+                        <h3 class="card-title">Abducción</h3>
+                        <label class="custom-checkbox"><input type="checkbox"
+                                name="abduccion_derecha"><span></span>Derecha</label>
+                        <label class="custom-checkbox"><input type="checkbox"
+                                name="abduccion_izquierda"><span></span>Izquierda</label>
+                    </div>
+                    <div class="checkbox-card">
+                        <h3 class="card-title">Supinación</h3>
+                        <label class="custom-checkbox"><input type="checkbox"
+                                name="supinacion_derecha"><span></span>Derecha</label>
+                        <label class="custom-checkbox"><input type="checkbox"
+                                name="supinacion_izquierda"><span></span>Izquierda</label>
+                    </div>
+                    <div class="checkbox-card">
+                        <h3 class="card-title">Pronación</h3>
+                        <label class="custom-checkbox"><input type="checkbox"
+                                name="pronacion_derecha"><span></span>Derecha</label>
+                        <label class="custom-checkbox"><input type="checkbox"
+                                name="pronacion_izquierda"><span></span>Izquierda</label>
+                    </div>
+                    <div class="checkbox-card">
+                        <h3 class="card-title">Equino</h3>
+                        <label class="custom-checkbox"><input type="checkbox"
+                                name="equino_derecha"><span></span>Derecha</label>
+                        <label class="custom-checkbox"><input type="checkbox"
+                                name="equino_izquierda"><span></span>Izquierda</label>
+                    </div>
+                    <div class="checkbox-card">
+                        <h3 class="card-title">Talo</h3>
+                        <label class="custom-checkbox"><input type="checkbox"
+                                name="talo_derecha"><span></span>Derecha</label>
+                        <label class="custom-checkbox"><input type="checkbox"
+                                name="talo_izquierda"><span></span>Izquierda</label>
+                    </div>
+                    <div class="checkbox-card">
+                        <h3 class="card-title">Cojera</h3>
+                        <label class="custom-checkbox"><input type="checkbox"
+                                name="cojera_derecha"><span></span>Derecha</label>
+                        <label class="custom-checkbox"><input type="checkbox"
+                                name="cojera_izquierda"><span></span>Izquierda</label>
+                    </div>
+                    <div class="checkbox-card">
+                        <h3 class="card-title">Normal</h3>
+                        <label class="custom-checkbox"><input type="checkbox"
+                                name="normal_derecha"><span></span>Derecha</label>
+                        <label class="custom-checkbox"><input type="checkbox"
+                                name="normal_izquierda"><span></span>Izquierda</label>
+                    </div>
+                </div>
+            </section>
+
+            <!-- STEP 4: Observación del Calzado -->
+            <section class="wizard-step" id="step-4">
+                <div class="step-header">
+                    <h2>4. Observación del Calzado</h2>
+                    <p>Patrones de desgaste y zonas críticas</p>
+                </div>
+
+                <div class="checkbox-grid">
+                    <div class="checkbox-card full-span">
+                        <h3 class="card-title">Desgaste</h3>
+                        <div class="two-col-options">
+                            <div class="option-group">
+                                <h4>Derecha</h4>
+                                <label class="custom-checkbox"><input type="checkbox"
+                                        name="desgaste_interno_derecha"><span></span>Interno</label>
+                                <label class="custom-checkbox"><input type="checkbox"
+                                        name="desgaste_externo_derecha"><span></span>Externo</label>
+                                <label class="custom-checkbox"><input type="checkbox"
+                                        name="desgaste_central_derecha"><span></span>Central</label>
+                                <label class="custom-checkbox"><input type="checkbox"
+                                        name="desgaste_normal_derecha"><span></span>Normal</label>
+                            </div>
+                            <div class="option-group">
+                                <h4>Izquierda</h4>
+                                <label class="custom-checkbox"><input type="checkbox"
+                                        name="desgaste_interno_izquierda"><span></span>Interno</label>
+                                <label class="custom-checkbox"><input type="checkbox"
+                                        name="desgaste_externo_izquierda"><span></span>Externo</label>
+                                <label class="custom-checkbox"><input type="checkbox"
+                                        name="desgaste_central_izquierda"><span></span>Central</label>
+                                <label class="custom-checkbox"><input type="checkbox"
+                                        name="desgaste_normal_izquierda"><span></span>Normal</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="checkbox-card full-span">
+                        <h3 class="card-title">Zonas del Pie</h3>
+                        <div class="two-col-options">
+                            <div class="option-group">
+                                <h4>Derecha</h4>
+                                <label class="custom-checkbox"><input type="checkbox"
+                                        name="zona_retropie_derecha"><span></span>Retropié</label>
+                                <label class="custom-checkbox"><input type="checkbox"
+                                        name="zona_mediopie_derecha"><span></span>Mediopié</label>
+                                <label class="custom-checkbox"><input type="checkbox"
+                                        name="zona_antepie_derecha"><span></span>Antepié</label>
+                            </div>
+                            <div class="option-group">
+                                <h4>Izquierda</h4>
+                                <label class="custom-checkbox"><input type="checkbox"
+                                        name="zona_retropie_izquierda"><span></span>Retropié</label>
+                                <label class="custom-checkbox"><input type="checkbox"
+                                        name="zona_mediopie_izquierda"><span></span>Mediopié</label>
+                                <label class="custom-checkbox"><input type="checkbox"
+                                        name="zona_antepie_izquierda"><span></span>Antepié</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-grid mt-4">
+                    <div class="input-group full-width">
+                        <label>Descripción del calzado observado</label>
+                        <textarea name="descripcionCalzado" rows="3"
+                            placeholder="Tipo de suela, material, deformidades visibles en el zapato..."></textarea>
+                    </div>
+                    <div class="input-group full-width">
+                        <label>Otras Observaciones</label>
+                        <textarea name="observacionesCalzado" rows="3"
+                            placeholder="Anotaciones adicionales..."></textarea>
+                    </div>
+                </div>
+            </section>
+
+            <!-- STEP 5: Observación en Podoscopio (INCLUYE CÁMARAS) -->
+            <section class="wizard-step" id="step-5">
+                <div class="step-header">
+                    <h2>5. Observación en Podoscopio</h2>
+                    <p>Morfología plantar y registro fotográfico</p>
+                </div>
+
+                <div class="checkbox-grid">
+                    <div class="checkbox-card input-included">
+                        <h3 class="card-title">Pie Plano</h3>
+                        <div class="side-by-side">
+                            <label class="custom-checkbox"><input type="checkbox"
+                                    name="pie_plano_derecha"><span></span>Derecha</label>
+                            <input type="number" name="pie_plano_grado_derecha" placeholder="Grado" min="0">
+                        </div>
+                        <div class="side-by-side mt-2">
+                            <label class="custom-checkbox"><input type="checkbox"
+                                    name="pie_plano_izquierda"><span></span>Izquierda</label>
+                            <input type="number" name="pie_plano_grado_izquierda" placeholder="Grado" min="0">
+                        </div>
+                    </div>
+
+                    <div class="checkbox-card input-included">
+                        <h3 class="card-title">Pie Cavo</h3>
+                        <div class="side-by-side">
+                            <label class="custom-checkbox"><input type="checkbox"
+                                    name="pie_cavo_derecha"><span></span>Derecha</label>
+                            <input type="number" name="pie_cavo_grado_derecha" placeholder="Grado" min="0">
+                        </div>
+                        <div class="side-by-side mt-2">
+                            <label class="custom-checkbox"><input type="checkbox"
+                                    name="pie_cavo_izquierda"><span></span>Izquierda</label>
+                            <input type="number" name="pie_cavo_grado_izquierda" placeholder="Grado" min="0">
+                        </div>
+                    </div>
+
+                    <div class="checkbox-card">
+                        <h3 class="card-title">Valgo Retropié</h3>
+                        <label class="custom-checkbox"><input type="checkbox"
+                                name="valgo_retropie_derecha"><span></span>Derecha</label>
+                        <label class="custom-checkbox"><input type="checkbox"
+                                name="valgo_retropie_izquierda"><span></span>Izquierda</label>
+                    </div>
+                    <div class="checkbox-card">
+                        <h3 class="card-title">Valgo Antepié</h3>
+                        <label class="custom-checkbox"><input type="checkbox"
+                                name="valgo_antepie_derecha"><span></span>Derecha</label>
+                        <label class="custom-checkbox"><input type="checkbox"
+                                name="valgo_antepie_izquierda"><span></span>Izquierda</label>
+                    </div>
+                    <div class="checkbox-card">
+                        <h3 class="card-title">Varo Retropié</h3>
+                        <label class="custom-checkbox"><input type="checkbox"
+                                name="varo_retropie_derecha"><span></span>Derecha</label>
+                        <label class="custom-checkbox"><input type="checkbox"
+                                name="varo_retropie_izquierda"><span></span>Izquierda</label>
+                    </div>
+                    <div class="checkbox-card">
+                        <h3 class="card-title">Varo Antepié</h3>
+                        <label class="custom-checkbox"><input type="checkbox"
+                                name="varo_antepie_derecha"><span></span>Derecha</label>
+                        <label class="custom-checkbox"><input type="checkbox"
+                                name="varo_antepie_izquierda"><span></span>Izquierda</label>
+                    </div>
+                    <div class="checkbox-card">
+                        <h3 class="card-title">Dismetría</h3>
+                        <label class="custom-checkbox"><input type="checkbox"
+                                name="dismetria_derecha"><span></span>Derecha</label>
+                        <label class="custom-checkbox"><input type="checkbox"
+                                name="dismetria_izquierda"><span></span>Izquierda</label>
+                    </div>
+                    <div class="checkbox-card">
+                        <h3 class="card-title">Pie Normal</h3>
+                        <label class="custom-checkbox"><input type="checkbox"
+                                name="pie_normal_derecha"><span></span>Derecha</label>
+                        <label class="custom-checkbox"><input type="checkbox"
+                                name="pie_normal_izquierda"><span></span>Izquierda</label>
+                    </div>
+                </div>
+
+                <!-- WebRTC Camera Section -->
+                <div class="camera-section">
+                    <div class="camera-header">
+                        <h3>Capturas del Podoscopio</h3>
+                        <div class="camera-controls">
+                            <label for="cameraSelect">Cámara:</label>
+                            <select class="modern-select" id="cameraSelect" onchange="switchCamera()">
+                                <option value="environment">Trasera</option>
+                                <option value="user">Frontal</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="webcam-grid">
+                        <!-- Vista Frontal -->
+                        <div class="capture-box">
+                            <div class="video-container">
+                                <label>Vista Frontal</label>
+                                <video id="video_frontal" autoplay playsinline></video>
+                                <button type="button" class="btn-capture" onclick="captureImage('frontal')">
+                                    <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor"
+                                        stroke-width="2" fill="none">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <circle cx="12" cy="12" r="3"></circle>
+                                    </svg> Capturar
+                                </button>
+                                <canvas id="canvas_frontal" style="display:none;"></canvas>
+                                <input type="hidden" name="imagen_frontal">
+                            </div>
+                            <div class="preview-box">
+                                <img id="img_frontal" src="" alt="Previsualización">
+                                <div class="placeholder-text">Sin Captura</div>
+                            </div>
+                        </div>
+
+                        <!-- Vista Posterior -->
+                        <div class="capture-box">
+                            <div class="video-container">
+                                <label>Vista Posterior</label>
+                                <video id="video_posterior" autoplay playsinline></video>
+                                <button type="button" class="btn-capture" onclick="captureImage('posterior')">
+                                    <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor"
+                                        stroke-width="2" fill="none">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <circle cx="12" cy="12" r="3"></circle>
+                                    </svg> Capturar
+                                </button>
+                                <canvas id="canvas_posterior" style="display:none;"></canvas>
+                                <input type="hidden" name="imagen_posterior">
+                            </div>
+                            <div class="preview-box">
+                                <img id="img_posterior" src="" alt="Previsualización">
+                                <div class="placeholder-text">Sin Captura</div>
+                            </div>
+                        </div>
+
+                        <!-- Huella Plantar -->
+                        <div class="capture-box">
+                            <div class="video-container">
+                                <label>Huella Plantar</label>
+                                <video id="video_plantar" autoplay playsinline></video>
+                                <button type="button" class="btn-capture" onclick="captureImage('plantar')">
+                                    <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor"
+                                        stroke-width="2" fill="none">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <circle cx="12" cy="12" r="3"></circle>
+                                    </svg> Capturar
+                                </button>
+                                <canvas id="canvas_plantar" style="display:none;"></canvas>
+                                <input type="hidden" name="imagen_plantar">
+                            </div>
+                            <div class="preview-box">
+                                <img id="img_plantar" src="" alt="Previsualización">
+                                <div class="placeholder-text">Sin Captura</div>
+                            </div>
+                        </div>
+
+                        <!-- Retropie -->
+                        <div class="capture-box">
+                            <div class="video-container">
+                                <label>Retropié</label>
+                                <video id="video_retropie" autoplay playsinline></video>
+                                <button type="button" class="btn-capture" onclick="captureImage('retropie')">
+                                    <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor"
+                                        stroke-width="2" fill="none">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <circle cx="12" cy="12" r="3"></circle>
+                                    </svg> Capturar
+                                </button>
+                                <canvas id="canvas_retropie" style="display:none;"></canvas>
+                                <input type="hidden" name="imagen_retropie">
+                            </div>
+                            <div class="preview-box">
+                                <img id="img_retropie" src="" alt="Previsualización">
+                                <div class="placeholder-text">Sin Captura</div>
+                            </div>
+                        </div>
+
+                        <!-- Receta -->
+                        <div class="capture-box">
+                            <div class="video-container">
+                                <label>Receta Profesional</label>
+                                <video id="video_receta" autoplay playsinline></video>
+                                <button type="button" class="btn-capture" onclick="captureImage('receta')">
+                                    <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor"
+                                        stroke-width="2" fill="none">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <circle cx="12" cy="12" r="3"></circle>
+                                    </svg> Capturar
+                                </button>
+                                <canvas id="canvas_receta" style="display:none;"></canvas>
+                                <input type="hidden" name="imagen_receta">
+                            </div>
+                            <div class="preview-box">
+                                <img id="img_receta" src="" alt="Previsualización">
+                                <div class="placeholder-text">Sin Captura</div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- STEP 6: Exploración -->
+            <section class="wizard-step" id="step-6">
+                <div class="step-header">
+                    <h2>6. Dorso y Cara Plantar</h2>
+                    <p>Observación y exploración detallada</p>
+                </div>
+
+                <div class="checkbox-grid">
+                    <div class="checkbox-card full-span list-view">
+                        <h3 class="card-title">Deformidades y Condiciones</h3>
+                        <div class="three-col-list">
+                            <label class="custom-checkbox"><input type="checkbox"
+                                    name="hallux_valgus"><span></span>Hallux Valgus</label>
+                            <label class="custom-checkbox"><input type="checkbox"
+                                    name="hallux_rigidus"><span></span>Hallux Rigidus</label>
+                            <label class="custom-checkbox"><input type="checkbox"
+                                    name="juanete_sastre"><span></span>Juanete de Sastre</label>
+                            <label class="custom-checkbox"><input type="checkbox" name="dedo_garra"><span></span>Dedo de
+                                Garra</label>
+                            <label class="custom-checkbox"><input type="checkbox" name="dedo_martillo"><span></span>Dedo
+                                en Martillo</label>
+                            <label class="custom-checkbox"><input type="checkbox"
+                                    name="quintus_varus"><span></span>Quintus Varus</label>
+                            <label class="custom-checkbox"><input type="checkbox"
+                                    name="alteracion_piel_uñas"><span></span>Alteración Piel/Uñas</label>
+                            <label class="custom-checkbox"><input type="checkbox"
+                                    name="callosidades"><span></span>Callosidades</label>
+                            <label class="custom-checkbox"><input type="checkbox"
+                                    name="verruga_plantar"><span></span>Verruga Plantar</label>
+                        </div>
+                    </div>
+
+                    <div class="checkbox-card full-span">
+                        <h3 class="card-title">Fórmula Digital del Antepié</h3>
+                        <div class="three-col-list">
+                            <label class="custom-checkbox"><input type="checkbox" name="Pie_griego"><span></span>Pie
+                                Griego</label>
+                            <label class="custom-checkbox"><input type="checkbox" name="Pie_egipcio"><span></span>Pie
+                                Egipcio</label>
+                            <label class="custom-checkbox"><input type="checkbox" name="Pie_cuadrado"><span></span>Pie
+                                Cuadrado</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-grid mt-4">
+                    <div class="input-group full-width">
+                        <label>Observaciones Adicionales</label>
+                        <textarea name="observaciones_dorso_cara_plantar" rows="3"
+                            placeholder="Detalles de las deformidades o condiciones..."></textarea>
+                    </div>
+                </div>
+            </section>
+
+            <!-- STEP 7: Productos Sugeridos -->
+            <section class="wizard-step" id="step-7">
+                <div class="step-header">
+                    <h2>7. Prescripción: Bases y Arcos</h2>
+                    <p>Productos sugeridos (Parte 1)</p>
+                </div>
+
+                <div class="form-grid">
+                    <div class="card-group full-width">
+                        <h3 class="section-subtitle">Bases y Aumentos</h3>
+                        <div class="three-col-config">
+                            <div class="input-group">
+                                <label>Base Derecha</label>
+                                <select class="modern-select" name="base_derecha">
+                                    <option value="">Seleccionar</option>
+                                    <option value="XG">XG</option>
+                                    <option value="G">G</option>
+                                    <option value="ML">ML</option>
+                                    <option value="M">M</option>
+                                    <option value="MA">MA</option>
+                                    <option value="MAC">MAC</option>
+                                    <option value="CH">CH</option>
+                                    <option value="N">N</option>
+                                    <option value="16-21">16-21</option>
+                                    <option value="12-16">12-16</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <label>Base Izquierda</label>
+                                <select class="modern-select" name="base_izquierda">
+                                    <option value="">Seleccionar</option>
+                                    <option value="XG">XG</option>
+                                    <option value="G">G</option>
+                                    <option value="ML">ML</option>
+                                    <option value="M">M</option>
+                                    <option value="MA">MA</option>
+                                    <option value="MAC">MAC</option>
+                                    <option value="CH">CH</option>
+                                    <option value="N">N</option>
+                                    <option value="16-21">16-21</option>
+                                    <option value="12-16">12-16</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="three-col-config mt-3">
+                            <div class="input-group">
+                                <label>Aumento Derecho</label>
+                                <select class="modern-select" name="aumento_derecha">
+                                    <option value="">Ninguno</option>
+                                    <option value="2.5mm">2.5 mm</option>
+                                    <option value="5mm">5 mm</option>
+                                    <option value="10mm">10 mm</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <label>Aumento Izquierdo</label>
+                                <select class="modern-select" name="aumento_izquierda">
+                                    <option value="">Ninguno</option>
+                                    <option value="2.5mm">2.5 mm</option>
+                                    <option value="5mm">5 mm</option>
+                                    <option value="10mm">10 mm</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-group full-width">
+                        <h3 class="section-subtitle">Arcos Longitudinales y Extras</h3>
+                        <div class="two-col-options">
+                            <div class="input-group">
+                                <label>A. Longitudinal Der (No.)</label>
+                                <input type="text" name="arco_longitudinal_derecho" placeholder="Número">
+                            </div>
+                            <div class="input-group">
+                                <label>A. Longitudinal Izq (No.)</label>
+                                <input type="text" name="arco_longitudinal_izquierdo" placeholder="Número">
+                            </div>
+                            <div class="input-group">
+                                <label>Arco Extra Derecho (No.)</label>
+                                <input type="text" name="arco_extra_derecho" placeholder="Número">
+                            </div>
+                            <div class="input-group">
+                                <label>Arco Extra Izquierdo (No.)</label>
+                                <input type="text" name="arco_extra_izquierdo" placeholder="Número">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- STEP 8: Prescripción Adicional -->
+            <section class="wizard-step" id="step-8">
+                <div class="step-header">
+                    <h2>8. Prescripción: Aditamentos</h2>
+                    <p>Productos sugeridos (Parte 2)</p>
+                </div>
+
+                <div class="checkbox-grid">
+
+                    <div class="checkbox-card full-span">
+                        <h3 class="card-title">Cuña de Retropié</h3>
+                        <div class="two-col-options">
+                            <div class="option-group">
+                                <h4>Derecha</h4>
+                                <label class="custom-checkbox"><input type="checkbox"
+                                        name="cuña_retropie_derecha_int"><span></span>Interna</label>
+                                <label class="custom-checkbox"><input type="checkbox"
+                                        name="cuña_retropie_derecha_ext"><span></span>Externa</label>
+                            </div>
+                            <div class="option-group">
+                                <h4>Izquierda</h4>
+                                <label class="custom-checkbox"><input type="checkbox"
+                                        name="cuña_retropie_izquierda_int"><span></span>Interna</label>
+                                <label class="custom-checkbox"><input type="checkbox"
+                                        name="cuña_retropie_izquierda_ext"><span></span>Externa</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="checkbox-card">
+                        <h3 class="card-title">Barras Laterales</h3>
+                        <label class="custom-checkbox"><input type="checkbox"
+                                name="barra_lateral_derecha"><span></span>Derecha</label>
+                        <label class="custom-checkbox"><input type="checkbox"
+                                name="barra_lateral_izquierda"><span></span>Izquierda</label>
+                    </div>
+
+                    <div class="checkbox-card">
+                        <h3 class="card-title">Barras Metatarsales</h3>
+                        <label class="custom-checkbox"><input type="checkbox"
+                                name="barra_metatarsal_derecha"><span></span>Derecha</label>
+                        <label class="custom-checkbox"><input type="checkbox"
+                                name="barra_metatarsal_izquierda"><span></span>Izquierda</label>
+                    </div>
+
+                    <div class="checkbox-card">
+                        <h3 class="card-title">Botón Retrocapital</h3>
+                        <div class="side-by-side mt-2">
+                            <label>Der.</label>
+                            <input type="text" name="boton_retrocapital_derecho" placeholder="No.">
+                        </div>
+                        <div class="side-by-side mt-2">
+                            <label>Izq.</label>
+                            <input type="text" name="boton_retrocapital_izquierdo" placeholder="No.">
+                        </div>
+                    </div>
+
+                    <div class="checkbox-card list-view">
+                        <h3 class="card-title">Virones</h3>
+                        <label>Der.</label>
+                        <select class="modern-select mb-2" name="viron_derecha">
+                            <option value="">Seleccionar</option>
+                            <option value="int_4mm">Interno 4 mm</option>
+                            <option value="ext_4mm">Externo 4 mm</option>
+                            <option value="int_6mm">Interno 6 mm</option>
+                            <option value="ext_6mm">Externo 6 mm</option>
+                        </select>
+                        <label>Izq.</label>
+                        <select class="modern-select" name="viron_izquierda">
+                            <option value="">Seleccionar</option>
+                            <option value="int_4mm">Interno 4 mm</option>
+                            <option value="ext_4mm">Externo 4 mm</option>
+                            <option value="int_6mm">Interno 6 mm</option>
+                            <option value="ext_6mm">Externo 6 mm</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-grid mt-4">
+                    <div class="input-group full-width">
+                        <label>Otros accesorios</label>
+                        <textarea name="otros_accesorios" rows="2"
+                            placeholder="Describa accesorios extra..."></textarea>
+                    </div>
+                    <div class="input-group full-width">
+                        <label>Observaciones generales</label>
+                        <textarea name="observaciones_generales" rows="2"
+                            placeholder="Comentarios finales de la receta..."></textarea>
+                    </div>
+                </div>
+            </section>
+
+            <!-- STEP 9: Finalización y Contacto -->
+            <section class="wizard-step" id="step-9">
+                <div class="step-header">
+                    <h2>9. Cierre y Venta</h2>
+                    <p>Contacto del cliente y documentos de soporte</p>
+                </div>
+
+                <div class="form-grid">
+                    <div class="input-group">
+                        <label>Teléfono Fijo</label>
+                        <input type="tel" name="telefono_fijo" pattern="[0-9]{10}" placeholder="Ej. 5512345678">
+                    </div>
+                    <div class="input-group">
+                        <label>Celular</label>
+                        <input type="tel" name="celular" pattern="[0-9]{10}" placeholder="Ej. 5512345678">
+                    </div>
+                    <div class="input-group">
+                        <label>Correo Electrónico</label>
+                        <input type="email" name="email" placeholder="correo@ejemplo.com">
+                    </div>
+                    <div class="input-group">
+                        <label>Ciudad</label>
+                        <input type="text" name="ciudad" placeholder="Ciudad de residencia">
+                    </div>
+
+                    <div class="divider full-width"></div>
+
+                    <div class="input-group">
+                        <label>No. de Nota</label>
+                        <input type="text" name="NoNota" placeholder="Ej. FOLIO-001">
+                    </div>
+                    <div class="input-group">
+                        <label>Total de la Venta ($)</label>
+                        <input type="number" name="TotalVenta" placeholder="0.00" step="0.01">
+                    </div>
+
+                    <div class="input-group full-width file-upload-box">
+                        <label>Adjuntar Documento Adicional (Opcional)</label>
+                        <div class="file-drop-area">
+                            <svg viewBox="0 0 24 24" width="32" height="32" stroke="currentColor" stroke-width="2"
+                                fill="none">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="17 8 12 3 7 8"></polyline>
+                                <line x1="12" y1="3" x2="12" y2="15"></line>
+                            </svg>
+                            <p>Arrastra un archivo aquí o haz clic para subir</p>
+                            <input type="file" id="document" name="document" accept=".pdf,.doc,.docx,.txt,.jpg,.png">
+                            <span id="file-name-display" class="file-name"></span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </form>
+
+        <!-- Wizard Navigation Controls -->
+        <footer class="wizard-footer">
+            <button type="button" id="btnPrev" class="btn btn-secondary" onclick="changeStep(-1)"
+                disabled>Anterior</button>
+            <button type="button" id="btnNext" class="btn btn-primary" onclick="changeStep(1)">Siguiente</button>
+            <button type="button" id="btnSubmit" class="btn btn-success" onclick="submitWizard()"
+                style="display:none;">Guardar Diagnóstico</button>
+        </footer>
+    </div>
+
+    <!-- Firebase compatibility and Wizard Logic -->
+    <script src="main.js"></script>
+</body>
+
+</html>
